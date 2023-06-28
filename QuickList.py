@@ -1,3 +1,9 @@
+"""
+This program was meant to see if dictionaries could store and update the data, such as count, max, and min. However,
+theoretically, it is possible that dictionary functions run in O(n) time instead of O(1). Therefore, there is a possibility that
+this code could have poor runtime complexity.
+
+"""
 class QuickList(object):
     def __init__(self):
         self.qList = []
@@ -7,7 +13,6 @@ class QuickList(object):
         self.index = {}
         self.count = {}
 
-    # O(1)
     def push(self, val):
         self.qList += [val]
         self.size += 1
@@ -31,8 +36,6 @@ class QuickList(object):
             if self.min and val < self.min:
                 self.min = val
 
-
-    # O(1)
     def pop_right(self):
         t = self.qList[-1]
         self.qList.pop()
@@ -47,7 +50,6 @@ class QuickList(object):
             self.index[t].pop()
         return t
 
-    # O(1)
     def pop_left(self):
         t = self.qList[0]
         self.qList.pop(0)
@@ -62,26 +64,22 @@ class QuickList(object):
             self.index[t].pop(0)
         return t
 
-    # O(1)
     def get_size(self):
         return self.size
 
-    # O(1)
     def get_count(self, val):
         return self.count[val]
 
-    # O(1)
     def get_index(self, val):
         return self.index[val]
 
-    # O(1)
     def swap(self, index1, index2):
         t = self.qList[index1]
         self.qList[index1] = self.qList[index2]
         self.qList[index2] = t
-    # O(1)
+
     def clear(self):
         self.qList = []
-    # O(1)
+
     def __str__(self):
         return str(self.qList)
