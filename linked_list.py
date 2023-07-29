@@ -146,7 +146,8 @@ class LinkedList:
 
     def merge(self, other):
         self.add_node(other.root)
-        self.size += other.size
+        # add_node() makes size 1 more than actual size. Subtract the size by 1 to fix error.
+        self.size += other.size - 1
     
     def __str__(self):
         return str(self.to_array())
@@ -160,12 +161,20 @@ lList.add_value(4)
 #lList.remove_first_instance(4)
 lList.add_value(19)
 lList.add_value(16)
+print(lList)
+
 lList.sort(reverse=True)
+print(lList)
+
 lList.pop(3)
+print(lList)
 
 lList2 = LinkedList()
 lList2.add_value(11)
 lList2.add_value(20)
 
 lList.merge(lList2)
+print(lList)
+
+lList.sort()
 print(lList)
