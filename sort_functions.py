@@ -41,6 +41,7 @@ class Sort():
             
     def binary_insertion_sort(self):
         assert len(self.array) > 0
+
         def binary_search(val, left, right):
             l, r = left, right
             while l < r:
@@ -54,7 +55,10 @@ class Sort():
         for i in range(len(self.array)):
             index = binary_search(self.array[i], 0, i)
             temp = self.array.pop(i)
+
             self.array.insert(index, temp)
+
+            self.array = self.array[0:index] + [temp] + self.array[index+1::]
 
     def counting_sort(self):
         assert len(self.array) > 0
@@ -132,7 +136,7 @@ if __name__ == '__main__':
     print(f"Insertion Sort Results: {sort_test}") 
 
     # Binary Insertion Sort
-    sort_test.array = [-2, 6, -14, 9, -5, 12, -7, 4, -11, 8]
+    sort_test.array = [-2, 6, -14, 9, -5, 12, -7, 4, -11, 8, -200, 132, 10, -1]
     sort_test.binary_insertion_sort()
     print(f"Binary Insertion Sort Results: {sort_test}") 
 
