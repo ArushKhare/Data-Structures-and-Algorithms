@@ -1,3 +1,4 @@
+# This code currently works if the first node is used (node1) as the starting node.
 class Node:
     def __init__(self, id, edges=[]):
         self.edges = edges
