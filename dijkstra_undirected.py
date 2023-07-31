@@ -1,3 +1,4 @@
+# Undirected Graph
 class Node:
     def __init__(self, id, edges=[]):
         self.edges = edges
