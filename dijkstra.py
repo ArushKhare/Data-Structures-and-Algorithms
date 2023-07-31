@@ -1,4 +1,3 @@
-# This code currently works if the first node is used (node1) as the starting node.
 class Node:
     def __init__(self, id, edges=[]):
         self.edges = edges
@@ -22,7 +21,7 @@ def dijkstra(root: Node, size: int):
     vis = set()
     vis.add(root)
     distances = [float('inf')] * size
-    distances[0] = 0
+    distances[root.id-1] = 0
 
     while stack:
         curr = stack.pop(0)
