@@ -116,7 +116,27 @@ class Sort():
             subset = merged
         
         self.array = subset[0]
-            
+
+    def shell_sort(self):
+        assert len(self.array) > 0
+        partition_size = len(self.array)//2
+        while (partition_size > 0):
+            for i in range(partition_size, len(self.array)):
+                j = i
+                while (j - partition_size >= 0 and self.array[j] < self.array[j-partition_size]):
+                    self._swap(j, j-partition_size)
+            partition_size //= 2
+    
+    def heap_sort(self):
+        import heapq
+        assert len(self.array) > 0
+        heap_array = self.array.copy()
+        heapq.heapify(heap_array)
+        result = []
+        while (heap_array):
+            result.append(heapq.heappop(heap_array))
+        self.array = result
+
         
 if __name__ == '__main__':
     # Bubble Sort 
@@ -148,4 +168,14 @@ if __name__ == '__main__':
     # Merge Sort
     sort_test.array = [-16, 13, -8, 3, -10, 7, -15, 2, -4, 1]
     sort_test.merge_sort()
-    print(f"Merge Sort Results: {sort_test}") 
+    print(f"Merge Sort Results: {sort_test}")
+
+    # Shell Sort
+    sort_test.array = [17, -3, 10, -6, 14, -9, 5, -12, 11, -1]
+    sort_test.shell_sort()
+    print(f"Shell Sort Results: {sort_test}") 
+
+    # Heap Sort
+    sort_test.array = [-16, 13, -8, 3, -10, 7, -15, 2, -4, 1]
+    sort_test.heap_sort()
+    print(f"Heap Sort Results: {sort_test}")
