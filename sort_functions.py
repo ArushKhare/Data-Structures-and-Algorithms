@@ -52,13 +52,11 @@ class Sort():
                     l = mid + 1
             return l
         
-        for i in range(len(self.array)):
-            index = binary_search(self.array[i], 0, i)
-            temp = self.array.pop(i)
-
-            self.array.insert(index, temp)
-
-            self.array = self.array[0:index] + [temp] + self.array[index+1::]
+        for i in range(1, len(self.array)):
+            if (self.array[i-1] > self.array[i]):
+                index = binary_search(self.array[i], 0, i)
+                temp = self.array.pop(i)
+                self.array = self.array[0:index] + [temp] + self.array[index::]
 
     def counting_sort(self):
         assert len(self.array) > 0
@@ -178,4 +176,4 @@ if __name__ == '__main__':
     # Heap Sort
     sort_test.array = [-16, 13, -8, 3, -10, 7, -15, 2, -4, 1]
     sort_test.heap_sort()
-    print(f"Heap Sort Results: {sort_test}")
+    print(f"Heap Sort Results: {sort_test}") 
