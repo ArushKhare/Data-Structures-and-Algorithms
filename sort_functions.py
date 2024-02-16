@@ -122,9 +122,9 @@ class Sort():
         partition_size = len(self.array)//2
         while (partition_size > 0):
             for i in range(partition_size, len(self.array)):
-                j = i
-                while (j - partition_size >= 0 and self.array[j] < self.array[j-partition_size]):
-                    self._swap(j, j-partition_size)
+                temp = i
+                while (temp - partition_size >= 0 and self.array[temp] < self.array[temp-partition_size]):
+                    self._swap(temp, temp-partition_size)
             partition_size //= 2
     
     def heap_sort(self):
