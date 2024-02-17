@@ -123,6 +123,7 @@ class Sort():
                 temp = i
                 while (temp - partition_size >= 0 and self.array[temp] < self.array[temp-partition_size]):
                     self._swap(temp, temp-partition_size)
+                    temp -= partition_size
             partition_size //= 2
     
     def heap_sort(self):
