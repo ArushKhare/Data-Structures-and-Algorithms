@@ -3,8 +3,8 @@ class Node(object):
         self.value = value
         self.next = next
     
-    def __eq__(self, object):
-        return (object.value == self.value)
+    def __eq__(self, other):
+        return (other.value == self.value)
     
     def __str__(self):
         return str(self.value)
