@@ -33,7 +33,7 @@ class BinarySearchTree():
                     curr.left = new_node
                     break
         return True
-    
+
     def preorder_traversal(self) -> list:
         assert self.root
         arr = []
@@ -81,6 +81,33 @@ class BinarySearchTree():
             if curr.right:
                 queue.append(curr.right)
         return arr
+    
+    def find_path(self, val):
+        assert self.root
+        path = ""
+        curr = self.root
+        while curr:
+            if curr.val == val:
+                return path
+            if curr.val > val:
+                curr = curr.left
+                path += 'l'
+            if curr.val < val:
+                curr = curr.right
+                path += 'r'
+        return ""
+    
+    def check_existence(self, val):
+        assert self.root
+        curr = self.root
+        while curr:
+            if curr.val == val:
+                return True
+            if curr.val > val:
+                curr = curr.left
+            if curr.val < val:
+                curr = curr.right
+        return False
 
 
 bst = BinarySearchTree()
