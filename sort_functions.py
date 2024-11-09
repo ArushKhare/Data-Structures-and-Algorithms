@@ -78,7 +78,7 @@ class Sort():
             count_pos += 1
 
     def merge_sort(self):
-        def merge_subsets(s1, s2):
+        def merge(s1, s2):
             i, j = 0, 0
             merged = []
             while i < len(s1) and j < len(s2):
@@ -106,7 +106,7 @@ class Sort():
             pos = 0
             while pos < len(subset):
                 if pos + 1 < len(subset):
-                    merged.append(merge_subsets(subset[pos], subset[pos+1]))
+                    merged.append(merge(subset[pos], subset[pos+1]))
                 else:
                     merged.append(subset[pos])
                 pos += 2
@@ -115,7 +115,7 @@ class Sort():
         self.array = subset[0]
 
     def optimized_merge_sort(self):
-        def merge_subsets(s1, s2):
+        def merge(s1, s2):
             i, j = 0, 0
             merged = []
             while i < len(s1) and j < len(s2):
@@ -153,7 +153,7 @@ class Sort():
             pos = 0
             while pos < len(subset):
                 if pos + 1 < len(subset):
-                    merged.append(merge_subsets(subset[pos], subset[pos+1]))
+                    merged.append(merge(subset[pos], subset[pos+1]))
                 else:
                     merged.append(subset[pos])
                 pos += 2
@@ -214,6 +214,11 @@ if __name__ == '__main__':
     sort_test.array = [-16, 13, -8, 3, -10, 7, -15, 2, -4, 1]
     sort_test.merge_sort()
     print(f"Merge Sort Results: {sort_test}")
+
+    # Optimized Merge Sort
+    sort_test.array = [-16, 13, -8, 3, -10, 7, -15, 2, -4, 1]
+    sort_test.optimized_merge_sort()
+    print(f"Optimized Merge Sort Results: {sort_test}")
 
     # Shell Sort
     sort_test.array = [17, -3, 10, -6, 14, -9, 5, -12, 11, -1]
