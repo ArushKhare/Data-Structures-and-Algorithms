@@ -78,7 +78,6 @@ class Sort():
             count_pos += 1
 
     def merge_sort(self):
-        # Merging function
         def merge_subsets(s1, s2):
             i, j = 0, 0
             merged = []
@@ -100,6 +99,53 @@ class Sort():
             return self.array
         
         subset = [[val] for val in self.array]
+
+        while len(subset) > 1:
+            merged = []
+            
+            pos = 0
+            while pos < len(subset):
+                if pos + 1 < len(subset):
+                    merged.append(merge_subsets(subset[pos], subset[pos+1]))
+                else:
+                    merged.append(subset[pos])
+                pos += 2
+            subset = merged
+        
+        self.array = subset[0]
+
+    def optimized_merge_sort(self):
+        def merge_subsets(s1, s2):
+            i, j = 0, 0
+            merged = []
+            while i < len(s1) and j < len(s2):
+                if s1[i] < s2[j]:
+                    merged.append(s1[i])
+                    i += 1
+                else:
+                    merged.append(s2[j])
+                    j += 1
+            merged.extend(s1[i::])
+            merged.extend(s2[j::])
+            return merged
+        
+        # Merge sort code starts here:
+        assert len(self.array) > 0
+
+        if len(self.array) == 1:
+            return self.array
+        
+        subset = [] # takes advantage of already-sorted subarrays
+        tmp = [self.array[0]]
+        for i in range(1, len(self.array)):
+            if (self.array[i-1] > self.array[i]):
+                subset.append(tmp)
+                tmp = [self.array[i]]
+            else:
+                tmp.append(self.array[i])
+
+        if (len(tmp) > 0):
+            subset.append(tmp)
 
         while len(subset) > 1:
             merged = []
