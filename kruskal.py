@@ -26,7 +26,7 @@ class DisjointSet():
         parentB = self.get_parent(b)
 
         if (parentA == parentB):
-            return
+            return False
 
         if self.rank[parentA] > self.rank[parentB]:
             self.parent[b] = parentA
@@ -35,6 +35,8 @@ class DisjointSet():
             self.parent[b] = parentA
         else:
             self.parent[a] = parentB
+        
+        return True
 
 
 class Graph():
@@ -49,10 +51,8 @@ class Graph():
         mst = []
         self.edges.sort(key=lambda x: x.weight)
         for edge in self.edges:
-            parentA = self.djset.get_parent(edge.vertexA)
-            parentB = self.djset.get_parent(edge.vertexB)
-            if (parentA != parentB):
-                self.djset.union(edge.vertexA, edge.vertexB)
+            joined = self.djset.union(edge.vertexA, edge.vertexB)
+            if joined:
                 mst.append(edge)
         
         return mst
