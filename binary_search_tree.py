@@ -35,7 +35,6 @@ class BinarySearchTree():
         
         return size_helper(self.root)
         
-    
     def push(self, val) -> bool:
         new_node = Node(val)
         if not self.root:
