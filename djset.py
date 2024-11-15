@@ -16,14 +16,16 @@ class DisjointSet():
         return i
     
     def union(self, a, b):
-        if self.parent[a] == self.parent[b]:
+        parentA = self.get_parent(a)
+        parentB = self.get_parent(b)
+        if parentA == parentB:
             return False
-        if self.rank[a] >= self.rank[b]:
-            self.parent[b] = self.get_parent(a)
-            if self.rank[a] == self.rank[b]:
-                self.rank[a] += 1
+        if self.rank[parentA] >= self.rank[parentB]:
+            self.parent[b] = parentA
+            if self.rank[parentA] == self.rank[parentB]:
+                self.rank[parentA] += 1
         else:
-            self.parent[a] = self.get_parent(b)
+            self.parent[a] = parentB
         return True
     
 
