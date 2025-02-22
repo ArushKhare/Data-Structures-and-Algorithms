@@ -160,6 +160,35 @@ class Sort():
             subset = merged
         
         self.array = subset[0]
+    
+    def quick_sort(self):
+        def partition(arr, piv):
+            if (len(arr) == 0):
+                return ([], [])
+            
+            left, right = partition(arr[1::], piv)
+
+            if (arr[0] >= piv):
+                right.append(arr[0])
+            else:
+                assert arr[0] < piv
+                left.append(arr[0])
+
+            return (left, right)
+        
+        def quicksort_helper(arr):
+            if (len(arr) == 0):
+                return []
+            
+            piv = arr[0]
+            x, y = partition(arr[1::], piv)
+
+            return quicksort_helper(x) + [piv] + quicksort_helper(y)
+        
+        # Quick sort code starts here
+        assert len(self.array) > 0
+
+        self.array = quicksort_helper(self.array)
 
     def shell_sort(self):
         assert len(self.array) > 0
@@ -219,6 +248,11 @@ if __name__ == '__main__':
     sort_test.array = [-16, 13, -8, 3, -10, 7, -15, 2, -4, 1]
     sort_test.optimized_merge_sort()
     print(f"Optimized Merge Sort Results: {sort_test}")
+
+    # Quick Sort
+    sort_test.array = [-16, 13, -8, 3, -10, 7, -15, 2, -4, 1]
+    sort_test.quick_sort()
+    print(f"Quick Sort Results: {sort_test}")
 
     # Shell Sort
     sort_test.array = [17, -3, 10, -6, 14, -9, 5, -12, 11, -1]
