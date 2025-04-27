@@ -1,18 +1,18 @@
 class SortedIntList:
-    def __init__(self): # O(1)
+    def __init__(self):
         self.sList = []
 
-    def listAdd(self, value): # O(logN)
+    def listAdd(self, value):
         lowest = self.__listLowerBound(value)
         self.sList.insert(lowest, value)
 
-    def listRemove(self, value): # O(logN)
+    def listRemove(self, value):
         targ = self.__listLowerBound(value)
         if self.sList[targ] != value:
             return
         del self.sList[targ]
 
-    def __listLowerBound(self, value): # O(logN)
+    def __listLowerBound(self, value):
         low, high = 0, len(self.sList)
         while low < high:
             mid = (low + high) // 2
@@ -22,10 +22,10 @@ class SortedIntList:
                 high = mid
         return low
 
-    def listClear(self): # O(1)
+    def listClear(self):
         self.sList = []
 
-    def __str__(self): # O(1)
+    def __str__(self):
         return str(self.sList)
 
 
