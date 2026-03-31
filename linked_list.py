@@ -1,5 +1,5 @@
 class Node(object):
-    def __init__(self, value, next): # O(1)
+    def __init__(self, value, next=None): # O(1)
         self.value = value
         self.next = next
     
@@ -34,31 +34,24 @@ class LinkedList:
         self.size += 1
 
     def remove_all(self, value): # O(size)
-        # Empty Linked List
         if not self.root:
             return
-        # Only the root and root is not equal to value
-        if self.size == 1:
-            if self.root.value != value:
+        
+        def helper(node):
+            if not node:
                 return
-        # Delete the root if it is the value
-        if self.root.value == value:
-            self.root = self.root.next
-            self.size -= 1
-            return
-        # For all other values
-        prev = self.root
-        curr = self.root.next
-        while curr:
-            if curr.value == value:
-                if curr == self.end:
-                    self.end = prev
-                prev.next = curr.next
-                curr = prev.next
+            if node.value == value:
                 self.size -= 1
+                return helper(node.next)
             else:
-                prev = curr
-                curr = curr.next
+                self.end = node
+                node.next = helper(node.next)
+                return node
+        
+        self.root = helper(self.root)
+
+        if not self.root:
+            self.end = None
     
     def pop(self, index): # O(size)
         assert index >= 0 and index < self.size
@@ -66,6 +59,8 @@ class LinkedList:
         if index == 0:
             value = self.root.value
             self.root = self.root.next
+            if not self.root:
+                self.end = None
             self.size -= 1
             return value
 
@@ -96,22 +91,61 @@ class LinkedList:
             current = current.next
         return array
     
-    def sort(self, reverse=False): # O(size^2)
-        # Using Bubble Sort
-        if self.root:
-            sorted = False
-            while not sorted:
-                current = self.root
-                sorted = True
-                while (current.next):
-                    if current.value > current.next.value:
-                        sorted = False
-                        temp = current.value
-                        current.value = current.next.value
-                        current.next.value = temp
-                    current = current.next
-                current = self.root
+    def sort(self, reverse=False): # O(size * log(size))
+
+        # uses mergesort
+
+        if self.size < 2:
+            return
+
+        def merge(left, right):
+            merged = Node(-1)
+            l, r = left, right
+            k = merged
+
+            while (l and r):
+                if l.value < r.value:
+                    k.next = l
+                    l = l.next
+                else:
+                    k.next = r
+                    r = r.next
+                k = k.next
+
+            while l:
+                k.next = l
+                l = l.next
+                k = k.next
+
+            while r:
+                k.next = r
+                r = r.next
+                k = k.next
+            
+            merged = merged.next
+            self.end = k # in the last merge, this is corrected
+            
+            return merged
         
+        nodes = []
+        curr = self.root
+
+        while (curr):
+            nodes.append(curr)
+            next_node = curr.next
+            curr.next = None
+            curr = next_node
+
+        while (len(nodes) > 1):
+            new = []
+            for i in range(0, len(nodes)-1, 2):
+                new.append(merge(nodes[i], nodes[i+1]))
+            if len(nodes) % 2 == 1:
+                new.append(nodes[-1])
+            nodes = new
+        
+        self.root = nodes[0]
+
         if reverse:
             self.reverse()
     
@@ -121,7 +155,7 @@ class LinkedList:
         current_index = 0
         current = self.root
 
-        if (index == self.size):
+        if (index == self.size - 1):
             return self.end.value
 
         while current_index < index:
@@ -136,7 +170,7 @@ class LinkedList:
         current_index = 0
         current = self.root
 
-        if (index == self.size):
+        if (index == self.size - 1):
             return self.end
 
         while current_index < index:
@@ -157,7 +191,9 @@ class LinkedList:
             curr = prev.next
         self.end = prev
             
-    def merge(self, other): # O(1)
+    def stitch(self, other): # O(1)
+        if not other.root:
+            return
         self.add_node(other.root)
         # add_node() makes size 1 more than actual size. Subtract the size by 1 to fix error.
         self.size += other.size - 1
@@ -192,7 +228,7 @@ lList2 = LinkedList()
 lList2.add_value(11)
 lList2.add_value(20)
 
-lList.merge(lList2)
+lList.stitch(lList2)
 print(lList)
 
 lList.sort()
