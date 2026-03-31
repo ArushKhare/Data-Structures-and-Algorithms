@@ -1,6 +1,8 @@
+import random
+
 class Sort():
-    def __init__(self, array = []):
-        self.array = array
+    def __init__(self, array = None):
+        self.array = array if array else []
 
     def __str__(self):
         return str(self.array)
@@ -56,7 +58,7 @@ class Sort():
             if (self.array[i-1] > self.array[i]):
                 index = binary_search(self.array[i], 0, i)
                 temp = self.array.pop(i)
-                self.array = self.array[0:index] + [temp] + self.array[index::]
+                self.array.insert(index, temp)
 
     def counting_sort(self):
         assert len(self.array) > 0
@@ -162,33 +164,23 @@ class Sort():
         self.array = subset[0]
     
     def quick_sort(self):
-        def partition(arr, piv):
-            if (len(arr) == 0):
-                return ([], [])
-            
-            left, right = partition(arr[1::], piv)
-
-            if (arr[0] >= piv):
-                right.append(arr[0])
-            else:
-                assert arr[0] < piv
-                left.append(arr[0])
-
-            return (left, right)
-        
-        def quicksort_helper(arr):
+        def helper(arr):
             if (len(arr) == 0):
                 return []
             
-            piv = arr[0]
-            x, y = partition(arr[1::], piv)
+            piv = arr[random.randint(0, len(arr)-1)]
 
-            return quicksort_helper(x) + [piv] + quicksort_helper(y)
-        
-        # Quick sort code starts here
+            less = list(filter(lambda x: x < piv, arr))
+            equal = list(filter(lambda x: x == piv, arr))
+            greater = list(filter(lambda x: x > piv, arr))
+
+            new = helper(less)
+            new.extend(equal)
+            new.extend(helper(greater))
+            return new
+
         assert len(self.array) > 0
-
-        self.array = quicksort_helper(self.array)
+        self.array = helper(self.array)
 
     def shell_sort(self):
         assert len(self.array) > 0
