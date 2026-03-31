@@ -17,9 +17,10 @@ class DisjointSet():
         return self.parent
 
     def get_parent(self, i):
-        while self.parent[i] != -1:
-            i = self.parent[i]
-        return i
+        if self.parent[i] == -1:
+            return i
+        self.parent[i] = self.get_parent(self.parent[i])
+        return self.parent[i]
     
     def union(self, a, b):
         parentA = self.get_parent(a)
