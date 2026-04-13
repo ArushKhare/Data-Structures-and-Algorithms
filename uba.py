@@ -50,32 +50,6 @@ class Unbounded_Array():
         if self.end <= (self.capacity // 4):
             self.resize(self.capacity // 2)
 
-    def add_at_index(self, index, val):
-        assert 0 <= index < self.end
-
-        # Resizes if array is too small
-        if (self.end == self.capacity):
-            self.resize(2 * self.capacity + 1)
-
-        for i in range(index, self.end):
-            self.array[i+1] = self.array[i]
-        
-        self.array[index] = val
-        self.end += 1
-    
-    def remove_at_index(self, index):
-        assert 0 <= index < self.end and not self.is_empty()
-
-        for i in range(index+1, self.end):
-            self.array[i-1] = self.array[i]
-        
-        self.end -= 1
-        self.array[self.end] = 0
-
-        # Resizes if array is too big
-        if self.end <= (self.capacity // 4):
-            self.resize(self.capacity // 2)
-
 
 uba = Unbounded_Array(2) # []
 
